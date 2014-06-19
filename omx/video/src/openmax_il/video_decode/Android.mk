@@ -25,7 +25,7 @@ LOCAL_C_INCLUDES += \
 endif
 
 LOCAL_SHARED_LIBRARIES := $(TI_OMX_COMP_SHARED_LIBRARIES) \
-							libion_ti \
+							libion \
 							libhardware
 
 ifeq ($(PERF_INSTRUMENTATION),1)

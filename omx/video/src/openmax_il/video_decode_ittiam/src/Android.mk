@@ -62,7 +62,7 @@ endif
 
 LOCAL_SHARED_LIBRARIES := \
         $(TI_OMX_COMP_SHARED_LIBRARIES) \
-        libion_ti \
+        libion \
         libbridge \
 	libhardware
 
