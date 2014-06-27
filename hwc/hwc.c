@@ -1852,6 +1852,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
          hwc_dev->ext.mirror_region.left, hwc_dev->ext.mirror_region.top,
          hwc_dev->ext.mirror_region.right, hwc_dev->ext.mirror_region.bottom);
 
+#ifdef OMAP3_HWC_ENABLE_DISPLAY_HOTPLUG
     /* read switch state */
     int sw_fd = open("/sys/class/switch/display_support/state", O_RDONLY);
     int hpd = 0;
@@ -1862,6 +1863,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
         close(sw_fd);
     }
     handle_hotplug(hwc_dev, hpd);
+#endif
 
     ALOGE("omap3_hwc_device_open(rgb_order=%d nv12_only=%d)",
         hwc_dev->flags_rgb_order, hwc_dev->flags_nv12_only);
