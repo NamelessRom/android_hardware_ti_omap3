@@ -1876,6 +1876,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
          hwc_dev->ext.mirror_region.left, hwc_dev->ext.mirror_region.top,
          hwc_dev->ext.mirror_region.right, hwc_dev->ext.mirror_region.bottom);
 
+#ifndef OMAP3_HWC_BOOTLOADER_DISPLAY_INIT
     /* read switch state */
     int sw_fd = open("/sys/class/switch/display_support/state", O_RDONLY);
     int hpd = 0;
@@ -1886,6 +1887,7 @@ static int omap3_hwc_device_open(const hw_module_t* module, const char* name,
         close(sw_fd);
     }
     handle_hotplug(hwc_dev, hpd);
+#endif
 
     ALOGE("omap3_hwc_device_open(rgb_order=%d nv12_only=%d)",
         hwc_dev->flags_rgb_order, hwc_dev->flags_nv12_only);
@@ -1903,8 +1905,10 @@ done:
         pthread_mutex_destroy(&hwc_dev->lock);
         free(hwc_dev->buffers);
         free(hwc_dev);
+#ifndef OMAP3_HWC_BOOTLOADER_DISPLAY_INIT
     } else {
         omap3_hwc_reset_screen(hwc_dev);
+#endif
     }
 
     return err;
